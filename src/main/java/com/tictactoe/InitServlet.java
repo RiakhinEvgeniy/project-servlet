@@ -15,13 +15,14 @@ import java.util.Map;
 public class InitServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        HttpSession currentSession = req.getSession();
+        HttpSession currentSession = req.getSession(true);
         Field field = new Field();
         Map<Integer, Sign> fieldData = field.getField();
         List<Sign> data = field.getFieldData();
         currentSession.setAttribute("field", field);
         currentSession.setAttribute("data", data);
-        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/index.jsp");
-        requestDispatcher.forward(req, resp);
+//        RequestDispatcher requestDispatcher = req.getRequestDispatcher("/index.jsp");
+//        requestDispatcher.forward(req, resp);
+        getServletContext().getRequestDispatcher("/index.jsp").forward(req, resp);
     }
 }
