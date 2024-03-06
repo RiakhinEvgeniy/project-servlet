@@ -35,8 +35,21 @@ public class LogicServlet extends HttpServlet {
     }
 
     private boolean checkWinner(HttpServletResponse resp, HttpSession session, Field field) {
+        Sign winner = field.checkWin();
+        if (Sign.CROSS == winner || Sign.NOUGHT == winner) {
+            session.setAttribute("winner", winner);
 
-        return true;
+            List<Sign> data = field.getFieldData();
+            session.setAttribute("data", data);
+
+            try {
+                resp.sendRedirect("/index.jsp");
+            } catch (IOException e) {
+                throw new RuntimeException("Fail redirect from checkWinner method", e);
+            }
+            return true;
+        }
+        return false;
     }
     private static void getEmptyField(Field field) {
         int emptyFieldIndex = field.getEmptyFieldIndex();
