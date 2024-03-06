@@ -24,7 +24,10 @@ public class LogicServlet extends HttpServlet {
 
         field.getField().put(index, Sign.CROSS);
 
+        if (checkWinner(resp, currentSession, field)) return;
+
         getEmptyField(field);
+        if (checkWinner(resp, currentSession, field)) return;
 
         List<Sign> data = field.getFieldData();
 
@@ -51,7 +54,8 @@ public class LogicServlet extends HttpServlet {
         }
         return false;
     }
-    private static void getEmptyField(Field field) {
+
+    private void getEmptyField(Field field) {
         int emptyFieldIndex = field.getEmptyFieldIndex();
         if (emptyFieldIndex >= 0) {
             field.getField().put(emptyFieldIndex, Sign.NOUGHT);
