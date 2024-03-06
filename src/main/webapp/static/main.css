@@ -1,0 +1,11 @@
+td {
+    border: 3px solid red;
+    padding: 10px;
+    border-collapse: separate;
+    margin: 10px;
+    width: 80px;
+    height: 80px;
+    font-size: 50px;
+    text-align: center;
+    empty-cells: show;
+}
