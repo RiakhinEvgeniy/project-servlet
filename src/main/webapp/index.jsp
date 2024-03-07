@@ -45,6 +45,10 @@
     <button onclick="restart()">Start again</button>
 </c:if>
 
+<c:if test="${draw}">
+    <h2>IT'S DRAW</h2>
+    <button onclick="restart()">Start again</button>
+</c:if>
 
 <script>
 function restart() {

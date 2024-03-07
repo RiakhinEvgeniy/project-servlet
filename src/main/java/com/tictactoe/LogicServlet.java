@@ -26,7 +26,13 @@ public class LogicServlet extends HttpServlet {
 
         if (checkWinner(resp, currentSession, field)) return;
 
-        getEmptyField(field);
+        boolean emptyField = getEmptyField(field);
+
+        if (emptyField) {
+            getDraw(field, currentSession, resp);
+            return;
+        }
+
         if (checkWinner(resp, currentSession, field)) return;
 
         List<Sign> data = field.getFieldData();
@@ -55,11 +61,24 @@ public class LogicServlet extends HttpServlet {
         return false;
     }
 
-    private void getEmptyField(Field field) {
+    private boolean getEmptyField(Field field) {
         int emptyFieldIndex = field.getEmptyFieldIndex();
         if (emptyFieldIndex >= 0) {
             field.getField().put(emptyFieldIndex, Sign.NOUGHT);
+            return false;
         }
+        return true;
+    }
+
+    private void getDraw(Field field, HttpSession session, HttpServletResponse resp) {
+            session.setAttribute("draw", true);
+            List<Sign> data = field.getFieldData();
+            session.setAttribute("data", data);
+            try {
+                resp.sendRedirect("/index.jsp");
+            } catch (IOException e) {
+                throw new RuntimeException("Fail redirect from getEmptyField method" + e);
+            }
     }
 
     private boolean getIndexOnclickCell(HttpServletRequest req, HttpServletResponse resp, Field field, int index) throws ServletException, IOException {
