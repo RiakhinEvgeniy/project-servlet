@@ -71,14 +71,14 @@ public class LogicServlet extends HttpServlet {
     }
 
     private void getDraw(Field field, HttpSession session, HttpServletResponse resp) {
-            session.setAttribute("draw", true);
-            List<Sign> data = field.getFieldData();
-            session.setAttribute("data", data);
-            try {
-                resp.sendRedirect("/index.jsp");
-            } catch (IOException e) {
-                throw new RuntimeException("Fail redirect from getEmptyField method" + e);
-            }
+        session.setAttribute("draw", true);
+        List<Sign> data = field.getFieldData();
+        session.setAttribute("data", data);
+        try {
+            resp.sendRedirect("/index.jsp");
+        } catch (IOException e) {
+            throw new RuntimeException("Fail redirect from getEmptyField method" + e);
+        }
     }
 
     private boolean getIndexOnclickCell(HttpServletRequest req, HttpServletResponse resp, Field field, int index) throws ServletException, IOException {
